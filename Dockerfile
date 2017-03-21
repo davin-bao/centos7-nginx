@@ -65,12 +65,11 @@ RUN set -xe \
     
 RUN set -xe \
     && echo "daemon off;" >> /etc/nginx/nginx.conf \
-	fastcgi_temp_file_write_size 128k;
     && echo "pid /var/run/nginx.pid;" >> /etc/nginx/nginx.conf \
     && sed -i 's/user nginx;/user www;/g' /etc/nginx/nginx.conf \
     && sed -i 's/worker_connections 1024;/worker_connections 4096;/g' /etc/nginx/nginx.conf \
     && sed -i 's/client_max_body_size 1m;/client_max_body_size 2G;/g' /etc/nginx/nginx.conf \
-    && sed -i 's/client_max_body_size 2G;/client_max_body_size 2G;fastcgi_connect_timeout 300;fastcgi_send_timeout 300;fastcgi_read_timeout 300;fastcgi_buffer_size 64k;fastcgi_buffers 4 64k;fastcgi_busy_buffers_size 128k;/g' /etc/nginx/nginx.conf \
+    && sed -i 's/client_max_body_size 2G;/client_max_body_size 2G;fastcgi_connect_timeout 300;fastcgi_send_timeout 300;fastcgi_read_timeout 300;fastcgi_buffer_size 64k;fastcgi_buffers 4 64k;fastcgi_busy_buffers_size 128k;fastcgi_temp_file_write_size 128k;/g' /etc/nginx/nginx.conf \
     && sed -i 's/include \/etc\/nginx\/mime\.types;/include \/etc\/nginx\/mime\.types\;include \/etc\/nginx\/fastcgi\.conf\;/g' /etc/nginx/nginx.conf \
     && sed -i 's/include \/etc\/nginx\/conf.d\/\*\.conf\;/include \/home\/www\/conf\/\*\.conf\;/g' /etc/nginx/nginx.conf
 	
@@ -105,3 +104,5 @@ EXPOSE 80
 VOLUME ["/home/www"]
 
 CMD ["/run.sh"]
+    
+    
