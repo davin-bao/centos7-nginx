@@ -51,13 +51,8 @@ RUN set -xe \
     php7-sysvsem \
     php7-xml \
     php7-redis \
-	php7-phar \
+    php7-phar \
     php7-fpm
-	
-#install composer
-RUN set -xe \
-    && cd /home/www \
-    && curl -sS https://getcomposer.org/installer | php7
     
 RUN set -xe \
     && mkdir -p /home/www/logs/nginx \
